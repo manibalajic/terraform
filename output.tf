@@ -17,3 +17,7 @@ output "randdo" {
   
 }
 
+output "zoness" {
+  value = local.zones
+  
+}
