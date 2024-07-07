@@ -15,3 +15,6 @@ variable "newone" {
   
 }
 
+variable "instance_type"{
+}
+
