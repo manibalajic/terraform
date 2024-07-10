@@ -1,0 +1,10 @@
+{
+    version: "2012-10-17"
+    statement: [{
+        effect: allow
+        action: "s3:putobject"
+        resource:
+            
+            
+    }]
+}

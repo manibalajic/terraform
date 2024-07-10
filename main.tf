@@ -36,3 +36,13 @@ resource "aws_instance" "web" {
   key_name = "forwindows"
 }
 
+data "aws_ssm_parameter" "test" {
+  name = "env"
+}
+
+output "checking" {
+  value = data.aws_ssm_parameter.test.value
+  sensitive = true
+  
+}
+
