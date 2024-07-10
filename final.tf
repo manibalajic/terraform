@@ -44,24 +44,41 @@ resource "aws_route_table_association" "rt-pub-association" {
 }
 
 
-resource "aws_subnet" "private-1" {
-  vpc_id = aws_vpc.final.id
-  count = length(var.privatecidrs)
-  cidr_block = var.privatecidrs[count.index]
+# resource "aws_subnet" "private-1" {
+#   vpc_id = aws_vpc.final.id
+#   count = length(var.privatecidrs)
+#   cidr_block = var.privatecidrs[count.index]
 
+# }
+
+resource "aws_subnet" "private-a" {
+    vpc_id = aws_vpc.final.id
+    for_each = var.samps
+    cidr_block = each.value.cidr_block
+
+
+  
 }
 
-resource "aws_route_table" "rt-private" {
-    vpc_id = aws_vpc.final.id
-    route {
-      cidr_block = aws_subnet.private-1[0].cidr_block
-      gateway_id = aws_nat_gateway.natgw.id
+# resource "aws_route_table" "rt-private" {
+#     vpc_id = aws_vpc.final.id
+#     route {
+#       cidr_block = aws_subnet.private-1[0].cidr_block
+#       gateway_id = aws_nat_gateway.natgw.id
         
-    }  
+#     }  
+# }
+
+resource "aws_route_table" "rt-private" {
+  vpc_id = aws_vpc.final.id
+  route{
+    cidr_block = aws_subnet.private-a["subnet"].cidr_block
+    gateway_id = aws_nat_gateway.natgw.id
+  }
 }
 
 resource "aws_route_table_association" "rt-priv-association" {
-    subnet_id = aws_subnet.private-1[0].id
+    subnet_id = aws_subnet.private-a["subnet"].id
     route_table_id = aws_route_table.rt-private.id  
 }
   
