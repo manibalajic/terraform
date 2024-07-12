@@ -1,7 +1,22 @@
-with open("new.txt","r") as ubuntu:
-    texts=ubuntu.read()
-    for each in texts:
-     if "ami-0f58b397bc5c1f2e8" in each:
-            print("found")
+var= {
+  "Images": [
+    {
+      "ImageId": "string",
+      "Name": "string",
+      "Description": "string",
+      "Tags": ["string", "string", ...],
+      "Created": "datetime",
+      "Owner": "string"
+    },{
+         "ImageId": "string",
+      "Name": "string",
+      "Description": "string",
+      "Tags": ["string", "string", ...],
+      "Created": "datetime",
+      "Owner": "string"
+    }
+  ]
+}
 
-    
+for indexs in var["Images"]:
+    print(indexs["Tags"][0])
