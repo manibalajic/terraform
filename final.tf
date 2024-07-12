@@ -49,15 +49,12 @@ resource "aws_route_table_association" "rt-pub-association" {
 #   count = length(var.privatecidrs)
 #   cidr_block = var.privatecidrs[count.index]
 
-# }
+# 
 
 resource "aws_subnet" "private-a" {
   vpc_id     = aws_vpc.final.id
   for_each   = var.samps
   cidr_block = each.value.cidr_block
-
-
-
 }
 
 # resource "aws_route_table" "rt-private" {
@@ -110,4 +107,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress-pub" {
 # }
 
 
-
+resource "aws_subnet" "whattt" {
+  vpc_id = aws_vpc.final.id
+  for_each = var.whats
+  cidr_block = each.value.cidr_block
+  
+}

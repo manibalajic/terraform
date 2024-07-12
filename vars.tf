@@ -16,20 +16,6 @@ variable "ports" {
 }
 
 
-# variable "samp" {
-#   description = "what"
-#   type = map(object({
-#     cidr_block = string
-#   }))
-# }
-
-# samps = {
-#   key1 = {
-#     cidr_block = "10.0.3.0/24"
-#   }
-# }
-
-
 
 variable "samps" {
   description = "Map of CIDR blocks"
@@ -46,4 +32,17 @@ variable "samps" {
     }
 
   }
+}
+
+
+
+variable "whats" {
+  type = map(object({
+    cidr_block = string
+  }))
+  default = {
+    key11 = {
+    cidr_block = "10.0.10.0/24"
+  }
+}
 }
