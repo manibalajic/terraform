@@ -16,7 +16,12 @@ provider "aws" {
     }
   }
 }
-
+locals {
+  tags= {
+    terraform = "yes"
+    count = 1
+  }
+}
 # import {
 #   to= aws_instance.importing
 #   id = "i-06fb2ec924bb69ba8"
@@ -71,6 +76,13 @@ data "aws_ami" "ubuntu" {
 
 # Ubuntu Server 24.04 LTS 
 
+
+resource "null_resource" "newss" {
+  provisioner "local-exec" {
+    command = "echo hello > textss.txt "
+   }
+ }
+
 output "ubu" {
   value = data.aws_ami.ubuntu.id
   
@@ -80,10 +92,10 @@ output "ubu" {
 #     ami =  "ami-0f58b397bc5c1f2e8"
 #     instance_type = "t2.micro"
 #     key_name = "forwindows"
-#     vpc_security_group_ids = [ aws_security_group.SGs.id , aws_vpc_security_group_ingress_rule.sg2.id]
+#     vpc_security_group_ids = [ aws_security_group.SGs.id ]
 #     tags = {
 #       "Name" = "testingprovisioner"
-#       "another" = "tag"
+#       # "another" = "tag"
 #     }
 #     root_block_device {
 #       volume_size = "10"
@@ -95,12 +107,15 @@ output "ubu" {
 #       ignore_changes = [ tags ]
 #       # prevent_destroy = true
 #     }
-#     provisioner "file" {
-#       source = "C:\\Users\\Mani\\Downloads\\Terraform\\policyEC2"
-#       destination = "/home/ubuntu/policyEC2"
-         
-#     } 
-#     connection {
+#     provisioner "remote-exec" {
+#       inline = [ 
+#         "touch new.txt",
+#         "echo new data > new.txt"
+#        ]
+      
+#     }
+  
+#       connection {
 #       type = "ssh"
 #       private_key = file("C:\\Users\\Mani\\Downloads\\forwindowsConverted.pem")
 #       host = self.public_ip
